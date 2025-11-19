@@ -156,6 +156,10 @@ function startChallenge() {
   const category = document.getElementById("category").value;
   const cards = data[category];
 
+  console.log("選択カテゴリ:", category);
+  console.log("カード数:", cards ? cards.length : "なし");
+  console.log("カード内容:", cards);
+  
   if (!cards || cards.length === 0) {
     alert("このカテゴリーにカードがありません");
     return;
@@ -230,6 +234,7 @@ function startChallenge() {
 </p>
 </body>
 </html>
+
 
 
 
