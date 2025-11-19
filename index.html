@@ -113,16 +113,17 @@
   </div>
 
   <script>
-    let data = {};
-    const examDate = new Date("2025-12-14");
+let data = {};
+let isReady = false;
+const examDate = new Date("2025-12-14");
 
-    function updateCountdown() {
-      const today = new Date();
-      const diff = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
-      document.getElementById("countdown").textContent = `本番(12/14)まであと ${diff} 日`;
-    }
+function updateCountdown() {
+  const today = new Date();
+  const diff = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
+  document.getElementById("countdown").textContent = `本番(12/14)まであと ${diff} 日`;
+}
 
-    updateCountdown();
+updateCountdown();
 
 fetch("words.json")
   .then(response => {
@@ -133,13 +134,15 @@ fetch("words.json")
   })
   .then(json => {
     data = json;
-    document.getElementById("startBtn").disabled = false; // 読み込み完了後に有効化
+    isReady = true;
+    document.getElementById("startBtn").disabled = false;
     console.log("JSON読み込み成功:", Object.keys(data));
   })
   .catch(error => {
     console.error("JSON読み込みエラー:", error);
     alert("データの読み込みに失敗しました。words.json を確認してください。");
   });
+
 
 let isReady = false;
 
@@ -182,6 +185,7 @@ function startChallenge() {
   document.getElementById("challengeArea").style.display = "block";
   document.getElementById("detailArea").style.display = "none";
 }
+
 
 
     function showDetail(word) {
@@ -233,6 +237,7 @@ function startChallenge() {
 </p>
 </body>
 </html>
+
 
 
 
