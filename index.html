@@ -95,7 +95,7 @@
       <option value="society">社会</option>
       <option value="original">オリジナル</option>
     </select>
-    <button onclick="startChallenge()">カードを表示</button>
+    <button id="startBtn" onclick="startChallenge()" disabled>カードを表示</button>
   </div>
 
   <div id="cardArea"></div>
@@ -124,34 +124,53 @@
 
     updateCountdown();
 
-    fetch("words.json")
-      .then(response => response.json())
-      .then(json => {
-        data = json;
-      });
-
-    function startChallenge() {
-      const category = document.getElementById("category").value;
-      const cards = data[category];
-      if (!cards || cards.length === 0) return;
-
-      const selected = [];
-      while (selected.length < 3) {
-        const random = cards[Math.floor(Math.random() * cards.length)];
-        if (!selected.includes(random)) selected.push(random);
-      }
-
-      const html = selected.map(card => `
-        <div class="card" onclick="showDetail('${card.word}')">
-          <div class="word">${card.word}</div>
-        </div>
-      `).join("");
-
-      document.getElementById("cardArea").innerHTML = html;
-      document.getElementById("topArea").style.display = "none";
-      document.getElementById("challengeArea").style.display = "block";
-      document.getElementById("detailArea").style.display = "none";
+fetch("words.json")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("words.json が読み込めませんでした");
     }
+    return response.json();
+  })
+  .then(json => {
+    data = json;
+    document.getElementById("startBtn").disabled = false; // ボタンを有効化
+    console.log("JSON読み込み成功:", Object.keys(data));
+  })
+  .catch(error => {
+    console.error("JSON読み込みエラー:", error);
+    alert("データの読み込みに失敗しました。words.json を確認してください。");
+  });
+
+
+function startChallenge() {
+  const category = document.getElementById("category").value;
+  const cards = data[category];
+
+  console.log("選択カテゴリ:", category);
+  console.log("カード数:", cards ? cards.length : "なし");
+
+  if (!cards || cards.length === 0) {
+    alert("このカテゴリーにカードがありません");
+    return;
+  }
+
+  const selected = [];
+  while (selected.length < 3) {
+    const random = cards[Math.floor(Math.random() * cards.length)];
+    if (!selected.includes(random)) selected.push(random);
+  }
+
+  const html = selected.map(card => `
+    <div class="card" onclick="showDetail('${card.word}')">
+      <div class="word">${card.word}</div>
+    </div>
+  `).join("");
+
+  document.getElementById("cardArea").innerHTML = html;
+  document.getElementById("topArea").style.display = "none";
+  document.getElementById("challengeArea").style.display = "block";
+  document.getElementById("detailArea").style.display = "none";
+}
 
     function showDetail(word) {
       const category = document.getElementById("category").value;
@@ -202,6 +221,7 @@
 </p>
 </body>
 </html>
+
 
 
 
