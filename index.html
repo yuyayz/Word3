@@ -134,19 +134,15 @@ fetch("words.json")
   })
   .then(json => {
     data = json;
-    isReady = true; // 先にフラグを立てる
+    isReady = true;
     console.log("JSON読み込み成功:", Object.keys(data));
-    document.getElementById("startBtn").disabled = false; // その後ボタンを有効化
+    document.getElementById("startBtn").disabled = false;
   })
   .catch(error => {
     console.error("JSON読み込みエラー:", error);
     alert("データの読み込みに失敗しました。words.json を確認してください。");
   });
 
-  .catch(error => {
-    console.error("JSON読み込みエラー:", error);
-    alert("データの読み込みに失敗しました。words.json を確認してください。");
-  });
 
 
 function startChallenge() {
@@ -232,6 +228,7 @@ function startChallenge() {
 </p>
 </body>
 </html>
+
 
 
 
