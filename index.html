@@ -279,8 +279,10 @@ document.getElementById("detailArea").style.display = "none";
  <div id="cards"></div>
 <div id="timer" style="font-size:2em;"></div>
 <button id="showCardsBtn">カードを表示</button>
-<button id="stopBtn" disabled>Stop</button>
-<button id="startPresentationBtn" disabled>プレゼン開始</button>
+
+<!-- Stop / プレゼン開始ボタンは最初は非表示 -->
+<button id="stopBtn" style="display:none;" disabled>Stop</button>
+<button id="startPresentationBtn" style="display:none;" disabled>プレゼン開始</button>
 
 <script>
 let timerDisplay = document.getElementById("timer");
@@ -294,6 +296,9 @@ showCardsBtn.addEventListener("click", () => {
   document.getElementById("cards").textContent = "カード① カード② カード③";
   startTimer1(); // カードが表示されたら準備タイマー開始
   showCardsBtn.disabled = true; // ボタンを無効化
+  // Stop / プレゼン開始ボタンを表示
+  stopBtn.style.display = "inline-block";
+  startPresentationBtn.style.display = "inline-block";
 });
 
 // タイマー①：30秒カウントダウン
@@ -346,5 +351,6 @@ startPresentationBtn.addEventListener("click", () => {
 </body>
 
 </html>
+
 
 
