@@ -141,8 +141,8 @@
   <div id="cardArea"></div>
 
   <div id="challengeArea" style="display:none;">
-    <button onclick="nextChallenge()">次のチャレンジ</button>
-    <button onclick="goToTop()">トップに戻る</button>
+    <button id="nextBtn">次のチャレンジ</button>
+    <button id="topBtn">トップに戻る</button>
   </div>
 
   <div id="detailArea" style="display:none;">
@@ -150,13 +150,13 @@
 
     <div id="timerArea">
       <div id="timerDisplay">残り時間：3:00</div>
-      <button onclick="stopTimer()">タイマー停止</button>
-      <button onclick="resetTimer()">リセット</button>
+      <button id="stopBtn">タイマー停止</button>
+      <button id="resetBtn">リセット</button>
     </div>
 
-    <button onclick="goBack()">戻る</button>
-    <button onclick="nextChallenge()">次のチャレンジ</button>
-    <button onclick="goToTop()">トップに戻る</button>
+    <button id="backBtn">戻る</button>
+    <button id="nextBtn2">次のチャレンジ</button>
+    <button id="topBtn2">トップに戻る</button>
   </div>
 
   <footer style="text-align:center; margin-top:2rem; font-size: 1.4em; color: #555; line-height: 1.6;">
@@ -175,7 +175,6 @@ function updateCountdown() {
   const diff = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
   document.getElementById("countdown").textContent = `本番(12/14)まであと ${diff} 日`;
 }
-updateCountdown();
 
 // 配列シャッフル関数
 function shuffle(array) {
@@ -203,6 +202,16 @@ fetch("words.json")
     alert("データの読み込みに失敗しました。words.json を確認してください。");
   });
 
+// HTMLエスケープ関数（安全に文字列を埋め込む）
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 // カード表示処理
 function startChallenge() {
   if (!isReady) {
@@ -221,8 +230,8 @@ function startChallenge() {
   const selected = shuffled.slice(0, 3);
 
   const html = selected.map(card => `
-    <div class="card" onclick="showDetail('${card.word.replace(/'/g, "\\'")}')">
-      <div class="word">${card.word}</div>
+    <div class="card" data-word="${escapeHtml(card.word)}">
+      <div class="word">${escapeHtml(card.word)}</div>
     </div>
   `).join("");
 
@@ -241,7 +250,7 @@ function showDetail(word) {
 
   const html = `
     <div class="card">
-      <div class="word">${match.word}</div>
+      <div class="word">${escapeHtml(match.word)}</div>
       <div class="reps">${Array.isArray(match.reps) ? match.reps.join("、 ") : ""}</div>
     </div>
   `;
@@ -255,15 +264,15 @@ function showDetail(word) {
 
 // 戻るボタン
 function goBack() {
-  stopTimer(); // ← 戻る時にタイマー停止
+  stopTimer();
   document.getElementById("detailArea").style.display = "none";
   document.getElementById("cardArea").style.display = "block";
   document.getElementById("challengeArea").style.display = "block";
 }
 
-// 次のチャレンジ（ランダム3枚）
+// 次のチャレンジ
 function nextChallenge() {
-  stopTimer(); // ← 新しいチャレンジ開始時にタイマー停止
+  stopTimer();
   document.getElementById("detailArea").style.display = "none";
   document.getElementById("cardArea").innerHTML = "";
   document.getElementById("cardArea").style.display = "block";
@@ -272,7 +281,7 @@ function nextChallenge() {
 
 // トップに戻る
 function goToTop() {
-  stopTimer(); // ← トップに戻る時もタイマー停止
+  stopTimer();
   document.getElementById("cardArea").innerHTML = "";
   document.getElementById("detailCard").innerHTML = "";
   document.getElementById("topArea").style.display = "block";
@@ -299,13 +308,12 @@ function updateTimerDisplay() {
   }
 }
 
-// 修正版 startTimer
 function startTimer() {
-  stopTimer(); // ← まず必ず止める
+  stopTimer();
   timer = setInterval(() => {
     timeLeft--;
     updateTimerDisplay();
-    if (timeLeft < -10) { // 超過10秒で自動停止
+    if (timeLeft < -10) {
       stopTimer();
     }
   }, 1000);
@@ -322,12 +330,29 @@ function resetTimer() {
   updateTimerDisplay();
 }
 
-// ページロード時に初期表示
+// ページロード時に初期表示＋イベント委譲
 document.addEventListener("DOMContentLoaded", () => {
   updateCountdown();
   updateTimerDisplay();
+
+  // カードクリックイベント委譲
+  const cardArea = document.getElementById("cardArea");
+  cardArea.addEventListener("click", (e) => {
+    const cardEl = e.target.closest(".card");
+    if (!cardEl) return;
+    const word = cardEl.getAttribute("data-word");
+    showDetail(word);
+  });
+
+  // 各ボタンイベント
+  document.getElementById("backBtn").addEventListener("click", goBack);
+  document.getElementById("nextBtn").addEventListener("click", nextChallenge);
+  document.getElementById("nextBtn2").addEventListener("click", nextChallenge);
+  document.getElementById("topBtn").addEventListener("click", goToTop);
+  document.getElementById("topBtn2").addEventListener("click", goToTop);
+  document.getElementById("stopBtn").addEventListener("click", stopTimer);
+  document.getElementById("resetBtn").addEventListener("click", resetTimer);
 });
 </script>
 </body>
 </html>
-
