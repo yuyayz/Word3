@@ -243,10 +243,14 @@ function startChallenge() {
 }
 // 詳細表示（タイマー自動起動付き）
 function showDetail(word) {
+  console.log("showDetail called with:", word); // デバッグ用
   const category = document.getElementById("category").value;
   const cards = data[category];
   const match = cards.find(c => c.word === word);
-  if (!match) return;
+  if (!match) {
+    console.warn("カードが見つかりません:", word);
+    return;
+  }
 
   const html = `
     <div class="card">
@@ -258,8 +262,9 @@ function showDetail(word) {
   document.getElementById("cardArea").style.display = "none";
   document.getElementById("challengeArea").style.display = "none";
   document.getElementById("detailArea").style.display = "block";
-  resetTimer();
-  startTimer(); // ← 自動起動
+
+  resetTimer();   // タイマー初期化
+  startTimer();   // カウントダウン開始
 }
 
 // 戻るボタン
