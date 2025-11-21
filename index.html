@@ -264,8 +264,7 @@ function updateTimerDisplay() {
   const seconds = timeLeft % 60;
   const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
   const timerDisplay = document.getElementById("timerDisplay");
-  timerDisplay.textContent = `
-    timerDisplay.textContent = `残り時間：${display}`;
+  timerDisplay.textContent = `残り時間：${display}`;
   if (timeLeft < 0) {
     timerDisplay.textContent = "時間オーバー！";
     timerDisplay.classList.add("overdue");
@@ -298,3 +297,4 @@ function resetTimer() {
 </script>
 </body>
 </html>
+
