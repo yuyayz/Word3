@@ -78,19 +78,9 @@
       margin-top: 20px;
     }
 
-    #timerDisplay {
-      font-size: 1.6em;
-      margin-top: 10px;
-      color: #d33;
-    }
-
-    #timerArea {
+    #timer {
+      font-size: 2em;
       margin-top: 20px;
-    }
-
-    .overdue {
-      color: red;
-      font-weight: bold;
     }
 
     @media screen and (max-width: 600px) {
@@ -140,23 +130,19 @@
 
   <div id="cardArea"></div>
 
+  <div id="timer"></div>
+  <button id="stopBtn" style="display:none;" disabled>Stop</button>
+
   <div id="challengeArea" style="display:none;">
-    <button id="nextBtn">次のチャレンジ</button>
-    <button id="topBtn">トップに戻る</button>
+    <button onclick="nextChallenge()">次のチャレンジ</button>
+    <button onclick="goToTop()">トップに戻る</button>
   </div>
 
   <div id="detailArea" style="display:none;">
     <div id="detailCard"></div>
-
-    <div id="timerArea">
-      <div id="timerDisplay">準備：残り 0:30</div>
-      <button id="stopBtn">タイマー停止</button>
-      <button id="resetBtn">リセット</button>
-    </div>
-
-    <button id="backBtn">戻る</button>
-    <button id="nextBtn2">次のチャレンジ</button>
-    <button id="topBtn2">トップに戻る</button>
+    <button onclick="goBack()">戻る</button>
+    <button onclick="nextChallenge()">次のチャレンジ</button>
+    <button onclick="goToTop()">トップに戻る</button>
   </div>
 
   <footer style="text-align:center; margin-top:2rem; font-size: 1.4em; color: #555; line-height: 1.6;">
@@ -164,217 +150,159 @@
     (LINE: yuya987987)<br>
     全員一緒に合格。連帯責任！
   </footer>
-<script>
-let data = {};
-let isReady = false;
-const examDate = new Date("2025-12-14");
 
-// カウントダウン表示
-function updateCountdown() {
-  const today = new Date();
-  const diff = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
-  document.getElementById("countdown").textContent = `本番(12/14)まであと ${diff} 日`;
-}
+  <script>
+    let data = {};
+    let isReady = false;
+    const examDate = new Date("2025-12-14");
 
-// 配列シャッフル関数
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
-// JSON読み込み
-fetch("words.json")
-  .then(response => {
-    if (!response.ok) throw new Error("words.json が読み込めませんでした");
-    return response.json();
-  })
-  .then(json => {
-    data = json;
-    isReady = true;
-    document.getElementById("startBtn").disabled = false;
-    document.getElementById("startBtn").addEventListener("click", startChallenge);
-  })
-  .catch(error => {
-    console.error("JSON読み込みエラー:", error);
-    alert("データの読み込みに失敗しました。words.json を確認してください。");
-  });
-
-// HTMLエスケープ関数（安全に文字列を埋め込む）
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-// カード表示処理
-function startChallenge() {
-  if (!isReady) {
-    alert("データの読み込み中です。少し待ってからもう一度お試しください。");
-    return;
-  }
-
-  const category = document.getElementById("category").value;
-  const cards = data[category];
-  if (!cards || cards.length === 0) {
-    alert("このカテゴリーにカードがありません");
-    return;
-  }
-
-  const shuffled = shuffle([...cards]);
-  const selected = shuffled.slice(0, 3);
-
-  const html = selected.map(card => `
-    <div class="card" data-word="${escapeHtml(card.word)}">
-      <div class="word">${escapeHtml(card.word)}</div>
-    </div>
-  `).join("");
-
-  document.getElementById("cardArea").innerHTML = html;
-  document.getElementById("cardArea").style.display = "block";
-  document.getElementById("topArea").style.display = "none";
-  document.getElementById("challengeArea").style.display = "block";
-  document.getElementById("detailArea").style.display = "none";
-}
-// 詳細表示（タイマー自動起動付き）
-function showDetail(word) {
-  const category = document.getElementById("category").value;
-  const cards = data[category];
-  const match = cards.find(c => c.word === word);
-  if (!match) return;
-
-  const html = `
-    <div class="card">
-      <div class="word">${escapeHtml(match.word)}</div>
-      <div class="reps">${Array.isArray(match.reps) ? match.reps.join("、 ") : ""}</div>
-    </div>
-  `;
-  document.getElementById("detailCard").innerHTML = html;
-  document.getElementById("cardArea").style.display = "none";
-  document.getElementById("challengeArea").style.display = "none";
-  document.getElementById("detailArea").style.display = "block";
-
-  resetAllTimers();
-  startPrepTimer(); // ← 準備タイマーから開始
-}
-
-// 戻るボタン
-function goBack() {
-  stopAllTimers();
-  document.getElementById("detailArea").style.display = "none";
-  document.getElementById("cardArea").style.display = "block";
-  document.getElementById("challengeArea").style.display = "block";
-}
-
-// 次のチャレンジ
-function nextChallenge() {
-  stopAllTimers();
-  document.getElementById("detailArea").style.display = "none";
-  document.getElementById("cardArea").innerHTML = "";
-  document.getElementById("cardArea").style.display = "block";
-  startChallenge();
-}
-
-// トップに戻る
-function goToTop() {
-  stopAllTimers();
-  document.getElementById("cardArea").innerHTML = "";
-  document.getElementById("detailCard").innerHTML = "";
-  document.getElementById("topArea").style.display = "block";
-  document.getElementById("cardArea").style.display = "none";
-  document.getElementById("challengeArea").style.display = "none";
-  document.getElementById("detailArea").style.display = "none";
-}
-
-// タイマー処理（準備30秒 → 本番カウントアップ）
-let prepTime = 30;
-let mainTime = 0;
-let prepTimer = null;
-let mainTimer = null;
-
-function updatePrepDisplay() {
-  const display = `準備：残り 0:${prepTime.toString().padStart(2, '0')}`;
-  const el = document.getElementById("timerDisplay");
-  el.textContent = display;
-  el.classList.remove("overdue");
-}
-
-function updateMainDisplay() {
-  const minutes = Math.floor(mainTime / 60);
-  const seconds = mainTime % 60;
-  const display = `本番：経過 ${minutes}:${seconds.toString().padStart(2, '0')}`;
-  const el = document.getElementById("timerDisplay");
-  el.textContent = display;
-  if (mainTime >= 120) {
-    el.classList.add("overdue");
-  } else {
-    el.classList.remove("overdue");
-  }
-}
-
-function startPrepTimer() {
-  prepTime = 30;
-  updatePrepDisplay();
-  prepTimer = setInterval(() => {
-    prepTime--;
-    updatePrepDisplay();
-    if (prepTime <= 0) {
-      clearInterval(prepTimer);
-      startMainTimer();
+    function updateCountdown() {
+      const today = new Date();
+      const diff = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
+      document.getElementById("countdown").textContent = `本番(12/14)まであと ${diff} 日`;
     }
-  }, 1000);
-}
 
-function startMainTimer() {
-  mainTime = 0;
-  updateMainDisplay();
-  mainTimer = setInterval(() => {
-    mainTime++;
-    updateMainDisplay();
-  }, 1000);
-}
+    updateCountdown();
 
-function stopAllTimers() {
-  clearInterval(prepTimer);
-  clearInterval(mainTimer);
-  prepTimer = null;
-  mainTimer = null;
-}
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
 
-function resetAllTimers() {
-  stopAllTimers();
-  prepTime = 30;
-  mainTime = 0;
-  updatePrepDisplay();
-}
+    fetch("words.json")
+      .then(response => {
+        if (!response.ok) throw new Error("words.json が読み込めませんでした");
+        return response.json();
+      })
+      .then(json => {
+        data = json;
+        isReady = true;
+        document.getElementById("startBtn").disabled = false;
+        document.getElementById("startBtn").addEventListener("click", startChallenge);
+      })
+      .catch(error => {
+        console.error("JSON読み込みエラー:", error);
+        alert("データの読み込みに失敗しました。words.json を確認してください。");
+      });
 
-// ページロード時に初期表示＋イベント委譲
-document.addEventListener("DOMContentLoaded", () => {
-  updateCountdown();
-  updatePrepDisplay();
+    let timerDisplay = document.getElementById("timer");
+    let stopBtn = document.getElementById("stopBtn");
+    let timer, seconds = 0;
+    function startTimer1() {
+      let countdown = 30;
+      timerDisplay.textContent = `準備時間: ${countdown}s`;
+      timerDisplay.style.color = "#333";
+      timerDisplay.style.fontWeight = "normal";
+      stopBtn.style.display = "none";
 
-  // カードクリックイベント委譲
-  document.getElementById("cardArea").addEventListener("click", (e) => {
-    const cardEl = e.target.closest(".card");
-    if (!cardEl) return;
-    const word = cardEl.getAttribute("data-word");
-    showDetail(word);
-  });
+      timer = setInterval(() => {
+        countdown--;
+        timerDisplay.textContent = `準備時間: ${countdown}s`;
+        if (countdown <= 0) {
+          clearInterval(timer);
+          startTimer2();
+        }
+      }, 1000);
+    }
 
-  // 各ボタンイベント
-  document.getElementById("backBtn").addEventListener("click", goBack);
-  document.getElementById("nextBtn").addEventListener("click", nextChallenge);
-  document.getElementById("nextBtn2").addEventListener("click", nextChallenge);
-  document.getElementById("topBtn").addEventListener("click", goToTop);
-  document.getElementById("topBtn2").addEventListener("click", goToTop);
-  document.getElementById("stopBtn").addEventListener("click", stopAllTimers);
-  document.getElementById("resetBtn").addEventListener("click", resetAllTimers);
-});
-</script>
+    function startTimer2() {
+      seconds = 0;
+      stopBtn.disabled = false;
+      stopBtn.style.display = "inline-block";
+      timerDisplay.style.color = "#333";
+      timerDisplay.style.fontWeight = "normal";
+
+      timer = setInterval(() => {
+        seconds++;
+        timerDisplay.textContent = `プレゼン時間: ${seconds}s`;
+        if (seconds >= 120) {
+          timerDisplay.style.color = "red";
+          timerDisplay.style.fontWeight = "bold";
+        }
+      }, 1000);
+    }
+
+    stopBtn.addEventListener("click", () => {
+      clearInterval(timer);
+      timerDisplay.textContent += " （停止）";
+      stopBtn.disabled = true;
+    });
+
+    function startChallenge() {
+      if (!isReady) {
+        alert("データの読み込み中です。少し待ってからもう一度お試しください。");
+        return;
+      }
+
+      const category = document.getElementById("category").value;
+      const cards = data[category];
+      if (!cards || cards.length === 0) {
+        alert("このカテゴリーにカードがありません");
+        return;
+      }
+
+      const shuffled = shuffle([...cards]);
+      const selected = shuffled.slice(0, 3);
+
+      const html = selected.map(card => `
+        <div class="card" onclick="showDetail('${card.word}')">
+          <div class="word">${card.word}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("cardArea").innerHTML = html;
+      document.getElementById("cardArea").style.display = "block";
+      document.getElementById("topArea").style.display = "none";
+      document.getElementById("challengeArea").style.display = "block";
+      document.getElementById("detailArea").style.display = "none";
+
+      startTimer1();
+    }
+
+    function showDetail(word) {
+      const category = document.getElementById("category").value;
+      const cards = data[category];
+      const match = cards.find(c => c.word === word);
+      if (!match) return;
+
+      const html = `
+        <div class="card">
+      const html = `
+        <div class="card">
+          <div class="word">${match.word}</div>
+          <div class="reps">${match.reps.join("、 ")}</div>
+        </div>
+      `;
+      document.getElementById("detailCard").innerHTML = html;
+      document.getElementById("cardArea").style.display = "none";
+      document.getElementById("challengeArea").style.display = "none";
+      document.getElementById("detailArea").style.display = "block";
+    }
+
+    function goBack() {
+      document.getElementById("detailArea").style.display = "none";
+      document.getElementById("cardArea").style.display = "block";
+      document.getElementById("challengeArea").style.display = "block";
+    }
+
+    function nextChallenge() {
+      document.getElementById("detailArea").style.display = "none";
+      document.getElementById("cardArea").innerHTML = "";
+      document.getElementById("cardArea").style.display = "block";
+      startChallenge();
+    }
+
+    function goToTop() {
+      document.getElementById("cardArea").innerHTML = "";
+      document.getElementById("detailCard").innerHTML = "";
+      document.getElementById("topArea").style.display = "block";
+      document.getElementById("cardArea").style.display = "none";
+      document.getElementById("challengeArea").style.display = "none";
+      document.getElementById("detailArea").style.display = "none";
+    }
+  </script>
 </body>
 </html>
