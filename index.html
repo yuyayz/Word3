@@ -150,7 +150,6 @@
 
     <div id="timerArea">
       <div id="timerDisplay">残り時間：3:00</div>
-      <button onclick="startTimer()">タイマー開始</button>
       <button onclick="stopTimer()">タイマー停止</button>
       <button onclick="resetTimer()">リセット</button>
     </div>
@@ -165,7 +164,6 @@
     (LINE: yuya987987)<br>
     全員一緒に合格。連帯責任！
   </footer>
-
 <script>
 let data = {};
 let isReady = false;
@@ -235,7 +233,7 @@ function startChallenge() {
   document.getElementById("detailArea").style.display = "none";
 }
 
-// 詳細表示
+// 詳細表示（タイマー自動起動付き）
 function showDetail(word) {
   const category = document.getElementById("category").value;
   const cards = data[category];
@@ -253,11 +251,39 @@ function showDetail(word) {
   document.getElementById("challengeArea").style.display = "none";
   document.getElementById("detailArea").style.display = "block";
   resetTimer();
+  startTimer(); // ← 自動起動
+}
+// 戻るボタン
+function goBack() {
+  stopTimer(); // ← 戻る時にタイマー停止
+  document.getElementById("detailArea").style.display = "none";
+  document.getElementById("cardArea").style.display = "block";
+  document.getElementById("challengeArea").style.display = "block";
+}
+
+// 次のチャレンジ（ランダム3枚）
+function nextChallenge() {
+  stopTimer(); // ← 新しいチャレンジ開始時にタイマー停止
+  document.getElementById("detailArea").style.display = "none";
+  document.getElementById("cardArea").innerHTML = "";
+  document.getElementById("cardArea").style.display = "block";
+  startChallenge();
+}
+
+// トップに戻る
+function goToTop() {
+  stopTimer(); // ← トップに戻る時もタイマー停止
+  document.getElementById("cardArea").innerHTML = "";
+  document.getElementById("detailCard").innerHTML = "";
+  document.getElementById("topArea").style.display = "block";
+  document.getElementById("cardArea").style.display = "none";
+  document.getElementById("challengeArea").style.display = "none";
+  document.getElementById("detailArea").style.display = "none";
 }
 
 // タイマー処理
 let timer;
-let timeLeft = 180;
+let timeLeft = 180; // 3分
 
 function updateTimerDisplay() {
   const minutes = Math.floor(timeLeft / 60);
@@ -297,4 +323,3 @@ function resetTimer() {
 </script>
 </body>
 </html>
-
