@@ -276,18 +276,31 @@ document.getElementById("detailArea").style.display = "none";
     全員一緒に合格。連帯責任！</footer>
 </p>
 
-  <div id="timer" style="font-size:2em;"></div>
+ <div id="cards"></div>
+<div id="timer" style="font-size:2em;"></div>
+<button id="showCardsBtn">カードを表示</button>
 <button id="stopBtn" disabled>Stop</button>
+<button id="startPresentationBtn" disabled>プレゼン開始</button>
 
 <script>
 let timerDisplay = document.getElementById("timer");
 let stopBtn = document.getElementById("stopBtn");
+let startPresentationBtn = document.getElementById("startPresentationBtn");
+let showCardsBtn = document.getElementById("showCardsBtn");
 let timer, seconds = 0;
+
+// カード表示処理
+showCardsBtn.addEventListener("click", () => {
+  document.getElementById("cards").textContent = "カード① カード② カード③";
+  startTimer1(); // カードが表示されたら準備タイマー開始
+  showCardsBtn.disabled = true; // ボタンを無効化
+});
 
 // タイマー①：30秒カウントダウン
 function startTimer1() {
   let countdown = 30;
   timerDisplay.textContent = `準備時間: ${countdown}s`;
+  startPresentationBtn.disabled = false; // 途中切り替え可能
   timer = setInterval(() => {
     countdown--;
     timerDisplay.textContent = `準備時間: ${countdown}s`;
@@ -300,14 +313,17 @@ function startTimer1() {
 
 // タイマー②：カウントアップ
 function startTimer2() {
+  clearInterval(timer); // 準備タイマーを止める
   seconds = 0;
   stopBtn.disabled = false;
+  startPresentationBtn.disabled = true; // プレゼン開始ボタンは無効化
+  timerDisplay.style.color = "black"; // 色をリセット
   timer = setInterval(() => {
     seconds++;
     timerDisplay.textContent = `プレゼン時間: ${seconds}s`;
     // 2分経過したら色を変える
     if (seconds >= 120) {
-      timerDisplay.style.color = "red"; // 文字色を赤に
+      timerDisplay.style.color = "red";
       timerDisplay.style.fontWeight = "bold";
     }
   }, 1000);
@@ -320,11 +336,15 @@ stopBtn.addEventListener("click", () => {
   stopBtn.disabled = true;
 });
 
-// 実行開始
-startTimer1();
+// プレゼン開始ボタン（途中切り替え用）
+startPresentationBtn.addEventListener("click", () => {
+  startTimer2();
+});
 </script>
+
 
 </body>
 
 </html>
+
 
