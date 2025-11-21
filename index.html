@@ -78,6 +78,21 @@
       margin-top: 20px;
     }
 
+    #timerDisplay {
+      font-size: 1.6em;
+      margin-top: 10px;
+      color: #d33;
+    }
+
+    #timerArea {
+      margin-top: 20px;
+    }
+
+    .overdue {
+      color: red;
+      font-weight: bold;
+    }
+
     @media screen and (max-width: 600px) {
       body {
         padding: 10px;
@@ -132,6 +147,14 @@
 
   <div id="detailArea" style="display:none;">
     <div id="detailCard"></div>
+
+    <div id="timerArea">
+      <div id="timerDisplay">残り時間：3:00</div>
+      <button onclick="startTimer()">タイマー開始</button>
+      <button onclick="stopTimer()">タイマー停止</button>
+      <button onclick="resetTimer()">リセット</button>
+    </div>
+
     <button onclick="goBack()">戻る</button>
     <button onclick="nextChallenge()">次のチャレンジ</button>
     <button onclick="goToTop()">トップに戻る</button>
@@ -142,6 +165,7 @@
     (LINE: yuya987987)<br>
     全員一緒に合格。連帯責任！
   </footer>
+
 <script>
 let data = {};
 let isReady = false;
@@ -228,31 +252,48 @@ function showDetail(word) {
   document.getElementById("cardArea").style.display = "none";
   document.getElementById("challengeArea").style.display = "none";
   document.getElementById("detailArea").style.display = "block";
+  resetTimer();
 }
 
-// 戻るボタン
-function goBack() {
-  document.getElementById("detailArea").style.display = "none";
-  document.getElementById("cardArea").style.display = "block";
-  document.getElementById("challengeArea").style.display = "block";
+// タイマー処理
+let timer;
+let timeLeft = 180;
+
+function updateTimerDisplay() {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  const timerDisplay = document.getElementById("timerDisplay");
+  timerDisplay.textContent = `
+    timerDisplay.textContent = `残り時間：${display}`;
+  if (timeLeft < 0) {
+    timerDisplay.textContent = "時間オーバー！";
+    timerDisplay.classList.add("overdue");
+  } else {
+    timerDisplay.classList.remove("overdue");
+  }
 }
 
-// 次のチャレンジ（ランダム3枚）
-function nextChallenge() {
-  document.getElementById("detailArea").style.display = "none";
-  document.getElementById("cardArea").innerHTML = "";
-  document.getElementById("cardArea").style.display = "block";
-  startChallenge();
+function startTimer() {
+  if (timer) return; // 二重起動防止
+  timer = setInterval(() => {
+    timeLeft--;
+    updateTimerDisplay();
+    if (timeLeft < -10) { // 超過10秒で自動停止
+      stopTimer();
+    }
+  }, 1000);
 }
 
-// トップに戻る
-function goToTop() {
-  document.getElementById("cardArea").innerHTML = "";
-  document.getElementById("detailCard").innerHTML = "";
-  document.getElementById("topArea").style.display = "block";
-  document.getElementById("cardArea").style.display = "none";
-  document.getElementById("challengeArea").style.display = "none";
-  document.getElementById("detailArea").style.display = "none";
+function stopTimer() {
+  clearInterval(timer);
+  timer = null;
+}
+
+function resetTimer() {
+  stopTimer();
+  timeLeft = 180;
+  updateTimerDisplay();
 }
 </script>
 </body>
