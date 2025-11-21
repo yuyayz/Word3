@@ -149,7 +149,7 @@
     <div id="detailCard"></div>
 
     <div id="timerArea">
-      <div id="timerDisplay">残り時間：3:00</div>
+      <div id="timerDisplay">準備：残り 0:30</div>
       <button id="stopBtn">タイマー停止</button>
       <button id="resetBtn">リセット</button>
     </div>
@@ -243,14 +243,10 @@ function startChallenge() {
 }
 // 詳細表示（タイマー自動起動付き）
 function showDetail(word) {
-  console.log("showDetail called with:", word); // デバッグ用
   const category = document.getElementById("category").value;
   const cards = data[category];
   const match = cards.find(c => c.word === word);
-  if (!match) {
-    console.warn("カードが見つかりません:", word);
-    return;
-  }
+  if (!match) return;
 
   const html = `
     <div class="card">
@@ -263,13 +259,13 @@ function showDetail(word) {
   document.getElementById("challengeArea").style.display = "none";
   document.getElementById("detailArea").style.display = "block";
 
-  resetTimer();   // タイマー初期化
-  startTimer();   // カウントダウン開始
+  resetAllTimers();
+  startPrepTimer(); // ← 準備タイマーから開始
 }
 
 // 戻るボタン
 function goBack() {
-  stopTimer();
+  stopAllTimers();
   document.getElementById("detailArea").style.display = "none";
   document.getElementById("cardArea").style.display = "block";
   document.getElementById("challengeArea").style.display = "block";
@@ -277,7 +273,7 @@ function goBack() {
 
 // 次のチャレンジ
 function nextChallenge() {
-  stopTimer();
+  stopAllTimers();
   document.getElementById("detailArea").style.display = "none";
   document.getElementById("cardArea").innerHTML = "";
   document.getElementById("cardArea").style.display = "block";
@@ -286,7 +282,7 @@ function nextChallenge() {
 
 // トップに戻る
 function goToTop() {
-  stopTimer();
+  stopAllTimers();
   document.getElementById("cardArea").innerHTML = "";
   document.getElementById("detailCard").innerHTML = "";
   document.getElementById("topArea").style.display = "block";
@@ -295,54 +291,75 @@ function goToTop() {
   document.getElementById("detailArea").style.display = "none";
 }
 
-// タイマー処理
-let timer;
-let timeLeft = 180; // 3分
+// タイマー処理（準備30秒 → 本番カウントアップ）
+let prepTime = 30;
+let mainTime = 0;
+let prepTimer = null;
+let mainTimer = null;
 
-function updateTimerDisplay() {
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
-  const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  const timerDisplay = document.getElementById("timerDisplay");
-  timerDisplay.textContent = `残り時間：${display}`;
-  if (timeLeft < 0) {
-    timerDisplay.textContent = "時間オーバー！";
-    timerDisplay.classList.add("overdue");
+function updatePrepDisplay() {
+  const display = `準備：残り 0:${prepTime.toString().padStart(2, '0')}`;
+  const el = document.getElementById("timerDisplay");
+  el.textContent = display;
+  el.classList.remove("overdue");
+}
+
+function updateMainDisplay() {
+  const minutes = Math.floor(mainTime / 60);
+  const seconds = mainTime % 60;
+  const display = `本番：経過 ${minutes}:${seconds.toString().padStart(2, '0')}`;
+  const el = document.getElementById("timerDisplay");
+  el.textContent = display;
+  if (mainTime >= 120) {
+    el.classList.add("overdue");
   } else {
-    timerDisplay.classList.remove("overdue");
+    el.classList.remove("overdue");
   }
 }
 
-function startTimer() {
-  stopTimer();
-  timer = setInterval(() => {
-    timeLeft--;
-    updateTimerDisplay();
-    if (timeLeft < -10) {
-      stopTimer();
+function startPrepTimer() {
+  prepTime = 30;
+  updatePrepDisplay();
+  prepTimer = setInterval(() => {
+    prepTime--;
+    updatePrepDisplay();
+    if (prepTime <= 0) {
+      clearInterval(prepTimer);
+      startMainTimer();
     }
   }, 1000);
 }
 
-function stopTimer() {
-  clearInterval(timer);
-  timer = null;
+function startMainTimer() {
+  mainTime = 0;
+  updateMainDisplay();
+  mainTimer = setInterval(() => {
+    mainTime++;
+    updateMainDisplay();
+  }, 1000);
 }
 
-function resetTimer() {
-  stopTimer();
-  timeLeft = 180;
-  updateTimerDisplay();
+function stopAllTimers() {
+  clearInterval(prepTimer);
+  clearInterval(mainTimer);
+  prepTimer = null;
+  mainTimer = null;
+}
+
+function resetAllTimers() {
+  stopAllTimers();
+  prepTime = 30;
+  mainTime = 0;
+  updatePrepDisplay();
 }
 
 // ページロード時に初期表示＋イベント委譲
 document.addEventListener("DOMContentLoaded", () => {
   updateCountdown();
-  updateTimerDisplay();
+  updatePrepDisplay();
 
   // カードクリックイベント委譲
-  const cardArea = document.getElementById("cardArea");
-  cardArea.addEventListener("click", (e) => {
+  document.getElementById("cardArea").addEventListener("click", (e) => {
     const cardEl = e.target.closest(".card");
     if (!cardEl) return;
     const word = cardEl.getAttribute("data-word");
@@ -355,8 +372,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("nextBtn2").addEventListener("click", nextChallenge);
   document.getElementById("topBtn").addEventListener("click", goToTop);
   document.getElementById("topBtn2").addEventListener("click", goToTop);
-  document.getElementById("stopBtn").addEventListener("click", stopTimer);
-  document.getElementById("resetBtn").addEventListener("click", resetTimer);
+  document.getElementById("stopBtn").addEventListener("click", stopAllTimers);
+  document.getElementById("resetBtn").addEventListener("click", resetAllTimers);
 });
 </script>
 </body>
