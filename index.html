@@ -323,7 +323,11 @@ function resetTimer() {
 }
 
 // ページロード時に初期表示
-updateTimerDisplay();
+document.addEventListener("DOMContentLoaded", () => {
+  updateCountdown();
+  updateTimerDisplay();
+});
 </script>
 </body>
 </html>
+
