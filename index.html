@@ -232,7 +232,6 @@ function startChallenge() {
   document.getElementById("challengeArea").style.display = "block";
   document.getElementById("detailArea").style.display = "none";
 }
-
 // 詳細表示（タイマー自動起動付き）
 function showDetail(word) {
   const category = document.getElementById("category").value;
@@ -253,6 +252,7 @@ function showDetail(word) {
   resetTimer();
   startTimer(); // ← 自動起動
 }
+
 // 戻るボタン
 function goBack() {
   stopTimer(); // ← 戻る時にタイマー停止
@@ -299,8 +299,9 @@ function updateTimerDisplay() {
   }
 }
 
+// 修正版 startTimer
 function startTimer() {
-  if (timer) return; // 二重起動防止
+  stopTimer(); // ← まず必ず止める
   timer = setInterval(() => {
     timeLeft--;
     updateTimerDisplay();
@@ -320,6 +321,9 @@ function resetTimer() {
   timeLeft = 180;
   updateTimerDisplay();
 }
+
+// ページロード時に初期表示
+updateTimerDisplay();
 </script>
 </body>
 </html>
