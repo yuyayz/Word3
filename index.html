@@ -197,7 +197,10 @@ function startTimer1() {
   timerDisplay.textContent = `準備時間: ${countdown}s`;
   timerDisplay.style.color = "#333";
   timerDisplay.style.fontWeight = "normal";
-  stopBtn.style.display = "none";
+　stopBtn.style.display = "none";
+　stopBtn.disabled = true;
+　startPresentationBtn.style.display = "none";
+　startPresentationBtn.disabled = true;
 
   // プレゼン開始ボタンを表示＆有効化
   startPresentationBtn.style.display = "inline-block";
@@ -312,14 +315,16 @@ function nextChallenge() {
 
 
 function goToTop() {
+  clearInterval(timer); // ← これを追加して、タイマーを止める
   document.getElementById("cardArea").innerHTML = "";
   document.getElementById("detailCard").innerHTML = "";
   document.getElementById("topArea").style.display = "block";
   document.getElementById("cardArea").style.display = "none";
   document.getElementById("challengeArea").style.display = "none";
   document.getElementById("detailArea").style.display = "none";
-}
+  timerDisplay.textContent = ""; // ← 表示もリセットすると安心
 </script>
 </body>
 </html>
+
 
