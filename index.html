@@ -149,7 +149,7 @@
     operated by Nakahashi<br>
     (LINE: yuya987987)<br>
     全員一緒に合格。<br>
-    Let's enjoy the process!（陽は必ず昇る）
+    Let's enjoy the process!（陽は必ず昇る）<br>
   </footer>
 <script>
 let data = {};
@@ -199,9 +199,6 @@ function startTimer1() {
   timerDisplay.style.color = "#333";
   timerDisplay.style.fontWeight = "normal";
   stopBtn.style.display = "none";
-  stopBtn.disabled = true;
-  startPresentationBtn.style.display = "none";
-  startPresentationBtn.disabled = true;
 
   // プレゼン開始ボタンを表示＆有効化
   startPresentationBtn.style.display = "inline-block";
@@ -316,18 +313,25 @@ function nextChallenge() {
 
 
 function goToTop() {
-  clearInterval(timer); // ← これを追加して、タイマーを止める
+  // タイマーを止める
+  clearInterval(timer);
+  seconds = 0;
+  timerDisplay.textContent = "";
+
+  // ボタン類を初期化
+  stopBtn.style.display = "none";
+  stopBtn.disabled = true;
+  startPresentationBtn.style.display = "none";
+  startPresentationBtn.disabled = true;
+
+  // UIをトップ画面に戻す
   document.getElementById("cardArea").innerHTML = "";
   document.getElementById("detailCard").innerHTML = "";
   document.getElementById("topArea").style.display = "block";
   document.getElementById("cardArea").style.display = "none";
   document.getElementById("challengeArea").style.display = "none";
   document.getElementById("detailArea").style.display = "none";
-  timerDisplay.textContent = ""; // ← 表示もリセットすると安心
+}
 </script>
 </body>
 </html>
-
-
-
-
