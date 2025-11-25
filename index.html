@@ -132,7 +132,7 @@
   <div id="timer"></div>
   <button id="stopBtn" style="display:none;" disabled>Stop</button>
   <button id="startPresentationBtn" style="display:none;" disabled>プレゼン開始</button>
-
+  <button id="resetBtn" style="display:none;" disabled>再カウント</button>
   <div id="challengeArea" style="display:none;">
     <button onclick="nextChallenge()">次のチャレンジ</button>
     <button onclick="goToTop()">トップに戻る</button>
@@ -151,7 +151,8 @@
     全員一緒に合格。<br>
     Let's enjoy the process!（陽は必ず昇る）<br>
   </footer>
-<script>
+
+  <script>
 let data = {};
 let isReady = false;
 const examDate = new Date("2025-12-14");
@@ -189,8 +190,13 @@ fetch("words.json")
 
 let timerDisplay = document.getElementById("timer");
 let stopBtn = document.getElementById("stopBtn");
+let resetBtn = document.getElementById("resetBtn");
 let startPresentationBtn = document.getElementById("startPresentationBtn");
 let timer, seconds = 0;
+
+// 🔔 アラーム音を定義
+const shortBeep = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+const longBeep = new Audio("https://actions.google.com/sounds/v1/alarms/beep_long.ogg");
 
 // 準備タイマー（30秒）
 function startTimer1() {
@@ -200,19 +206,27 @@ function startTimer1() {
   timerDisplay.style.fontWeight = "normal";
   stopBtn.style.display = "none";
 
-  // プレゼン開始ボタンを表示＆有効化
-  startPresentationBtn.style.display = "inline-block";
-  startPresentationBtn.disabled = false;
+startPresentationBtn.style.display = "inline-block";
+startPresentationBtn.disabled = false;
 
+resetBtn.style.display = "inline-block";
+resetBtn.disabled = false;
+
+
+  // ✅ 修正：countdown-- を使って準備時間を減らす
   timer = setInterval(() => {
     countdown--;
     timerDisplay.textContent = `準備時間: ${countdown}s`;
     if (countdown <= 0) {
       clearInterval(timer);
-      startTimer2();
+      shortBeep.play();   // 準備終了時に短い音
+      startTimer2();      // プレゼンタイマーへ移行
     }
   }, 1000);
 }
+
+
+
 
 // プレゼンタイマー（カウントアップ）
 function startTimer2() {
@@ -220,9 +234,12 @@ function startTimer2() {
   stopBtn.disabled = false;
   stopBtn.style.display = "inline-block";
 
-  // プレゼン開始ボタンは無効化＆非表示にする
   startPresentationBtn.disabled = true;
   startPresentationBtn.style.display = "none";
+
+  resetBtn.style.display = "none";
+  resetBtn.disabled = true;
+
 
   timerDisplay.style.color = "#333";
   timerDisplay.style.fontWeight = "normal";
@@ -230,12 +247,24 @@ function startTimer2() {
   timer = setInterval(() => {
     seconds++;
     timerDisplay.textContent = `プレゼン時間: ${seconds}s`;
-    if (seconds >= 120) {
+    if (seconds === 120) {
+      // 🔔 ピピピと3回鳴らす処理
+      let count = 0;
+const beepInterval = setInterval(() => {
+  longBeep.cloneNode().play();   // ← 既存のAudioを複製して鳴らす
+  count++;
+  if (count >= 3) {
+    clearInterval(beepInterval);
+  }
+}, 500);
+// 0.5秒間隔で鳴らす
       timerDisplay.style.color = "red";
       timerDisplay.style.fontWeight = "bold";
     }
   }, 1000);
 }
+
+
 // Stopボタン
 stopBtn.addEventListener("click", () => {
   clearInterval(timer);
@@ -243,11 +272,40 @@ stopBtn.addEventListener("click", () => {
   stopBtn.disabled = true;
 });
 
-// プレゼン開始ボタン（途中切り替え用）
-startPresentationBtn.addEventListener("click", () => {
+// プレゼン開始ボタン
+// グローバルに追加
+let audioUnlocked = false;
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+startPresentationBtn.addEventListener("click", async () => {
   clearInterval(timer);   // 準備タイマーを止める
+
+  // ① AudioContext をユーザー操作で解放
+  if (audioCtx.state === "suspended") {
+    try { await audioCtx.resume(); } catch (e) { console.log("AudioContext resume失敗:", e); }
+  }
+
+  // ② 実際に一度音を鳴らして「許可」を獲得
+  try {
+    await longBeep.play();     // ここで鳴れば解放成功
+    audioUnlocked = true;
+  } catch (e) {
+    console.log("初回再生失敗:", e);
+    audioUnlocked = false;
+  }
+
   startTimer2();          // プレゼンタイマー開始
 });
+
+// 🔹 ここを追加（startPresentationBtn の外側に新しいイベントリスナー）
+resetBtn.addEventListener("click", () => {
+  clearInterval(timer);
+  startTimer1(); // 準備タイマーを再スタート
+});
+
+
+
+// カード表示処理
 function startChallenge() {
   if (!isReady) {
     alert("データの読み込み中です。少し待ってからもう一度お試しください。");
@@ -276,7 +334,7 @@ function startChallenge() {
   document.getElementById("challengeArea").style.display = "block";
   document.getElementById("detailArea").style.display = "none";
 
-  startTimer1(); // ← タイマー開始を統合
+  startTimer1(); // 準備タイマー開始
 }
 
 function showDetail(word) {
@@ -304,27 +362,24 @@ function goBack() {
 }
 
 function nextChallenge() {
-  clearInterval(timer); // ← これを追加して、前のタイマーを止める
+  clearInterval(timer);
   document.getElementById("detailArea").style.display = "none";
   document.getElementById("cardArea").innerHTML = "";
   document.getElementById("cardArea").style.display = "block";
   startChallenge();
 }
 
-
 function goToTop() {
-  // タイマーを止める
   clearInterval(timer);
   seconds = 0;
   timerDisplay.textContent = "";
-
-  // ボタン類を初期化
   stopBtn.style.display = "none";
   stopBtn.disabled = true;
   startPresentationBtn.style.display = "none";
   startPresentationBtn.disabled = true;
+  resetBtn.style.display = "none";
+  resetBtn.disabled = true;
 
-  // UIをトップ画面に戻す
   document.getElementById("cardArea").innerHTML = "";
   document.getElementById("detailCard").innerHTML = "";
   document.getElementById("topArea").style.display = "block";
@@ -333,5 +388,20 @@ function goToTop() {
   document.getElementById("detailArea").style.display = "none";
 }
 </script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
