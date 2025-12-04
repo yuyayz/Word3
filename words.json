@@ -548,7 +548,7 @@
 {"word": "忍者", "reps": ["戦術", "歴史", "隠密", "武士", "観光", "日本文化"]},
 {"word": "うどん", "reps": ["麺料理", "和食", "庶民食", "地域文化", "観光", "日本料理"]},
 {"word": "飴細工", "reps": ["平安時代", "江戸時代", "edible art made from sugar", "ハサミ", "浅草", "traditional Japanese candy sculpture"]},
-{"word": "刺身のツマ", "reps": ["大根", "飾り", "和食", "付け合わせ", "日本料理", "美学"]},
+{"word": "刺身のツマ", "reps": ["garnishes", "finely shredded daikon radish", "shiso leaves, seaweed, edible flowers", "Antibacterial effect", "Freshness", "Decoration"]},
 {"word": "玉子かけご飯", "reps": ["家庭料理", "卵", "ご飯", "醤油", "庶民食", "日本文化"]},
 {"word": "割烹着", "reps": ["料理", "衣服", "家庭", "伝統", "日本文化", "女性"]},
 {"word": "灘の酒", "reps": ["兵庫県", "日本酒", "酒造", "伝統", "観光", "名産"]},
@@ -598,6 +598,7 @@
 
   ]
 }
+
 
 
 
