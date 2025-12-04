@@ -135,7 +135,12 @@
   <div id="timer"></div>
   <button id="stopBtn" style="display:none;" disabled>Stop</button>
   <button id="startPresentationBtn" style="display:none;" disabled>プレゼン開始</button>
-  <button id="resetBtn" style="display:none;" disabled>再カウント</button>
+<div id="challengeArea" style="display:block;">
+  <button onclick="nextChallenge()">次のチャレンジ</button>
+  <button onclick="goToTop()">トップに戻る</button>
+  <button onclick="resetTimer()">再カウント</button> <!-- 🔧 追加 -->
+</div>
+
   <div id="challengeArea" style="display:none;">
     <button onclick="nextChallenge()">次のチャレンジ</button>
     <button onclick="goToTop()">トップに戻る</button>
@@ -301,10 +306,11 @@ startPresentationBtn.addEventListener("click", async () => {
 });
 
 // 🔹 ここを追加（startPresentationBtn の外側に新しいイベントリスナー）
-resetBtn.addEventListener("click", () => {
+function resetTimer() {
   clearInterval(timer);
   startTimer1(); // 準備タイマーを再スタート
-});
+}
+
 
 
 
@@ -394,6 +400,7 @@ function goToTop() {
 
 </body>
 </html>
+
 
 
 
