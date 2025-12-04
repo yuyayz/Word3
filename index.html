@@ -279,7 +279,12 @@ stopBtn.addEventListener("click", () => {
   clearInterval(timer);
   timerDisplay.textContent += " （停止）";
   stopBtn.disabled = true;
+
+  // 🔧 追加：再カウントボタンを表示・有効化
+  resetBtn.style.display = "inline-block";
+  resetBtn.disabled = false;
 });
+
 
 // プレゼン開始ボタン
 // グローバルに追加
@@ -401,6 +406,7 @@ function goToTop() {
 
 </body>
 </html>
+
 
 
 
