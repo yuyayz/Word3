@@ -549,7 +549,7 @@
 {"word": "うどん", "reps": ["麺料理", "和食", "庶民食", "地域文化", "観光", "日本料理"]},
 {"word": "飴細工", "reps": ["平安時代", "江戸時代", "edible art made from sugar", "ハサミ", "浅草", "traditional Japanese candy sculpture"]},
 {"word": "刺身のツマ", "reps": ["garnishes", "finely shredded daikon radish", "shiso leaves, seaweed, edible flowers", "Antibacterial effect", "Freshness", "Decoration"]},
-{"word": "玉子かけご飯", "reps": ["家庭料理", "卵", "ご飯", "醤油", "庶民食", "日本文化"]},
+{"word": "玉子かけご飯", "reps": ["white rice topped with a raw egg", "strict hygiene standards", "Egg over rice", "醤油", "庶民食", "日本文化"]},
 {"word": "割烹着", "reps": ["19世紀", "apron with sleeves", "designed to protect clothing during cooking", "伝統", "日本文化", "女性"]},
 {"word": "灘の酒", "reps": ["江戸時代に発展", "江戸で消費される酒の約8割が灘", "灘五郷", "宮水・六甲おろし・山田錦", "白鶴・菊正宗・大関", "crisp, dry"]},
 {"word": "デパ地下", "reps": ["百貨店", "食品売場", "グルメ", "都市文化", "観光", "日本文化"]},
@@ -581,23 +581,24 @@
 {"word": "風致地区", "reps": ["都市計画", "景観保護", "自然環境", "文化財", "日本制度", "観光"]},
 {"word": "干潟", "reps": ["有明海", "ラムサール条約", "藤前干潟", "生態系", "観光", "日本文化"]},
 {"word": "ラムサール条約", "reps": ["湿地保護", "国際条約", "自然環境", "生態系", "日本参加", "保全"]},
-{"word": "IR（統合型リゾート）", "reps": ["観光施設", "カジノ", "ホテル", "娯楽", "経済政策", "日本文化"]},
+{"word": "IR（統合型リゾート）", "reps": ["Integrated Resort", "Casino Hotels", "MICE facilities", "MGM Resorts International + Orix Corporation", "1.5 trillion yen", "autumn 2030"]},
 {"word": "デジタル庁", "reps": ["日本政府", "行政改革", "IT政策", "デジタル化", "社会制度", "近代化"]},
 {"word": "敷金礼金", "reps": ["security deposit", "keymoney", "契約", "日本文化", "制度", "住居"]},
 {"word": "唐招提寺", "reps": ["奈良県", "鑑真", "8世紀", "UNESCO世界文化遺産", "歴史的建造物", "文化財"]},
 {"word": "熱田神宮", "reps": ["愛知県", "草薙剣", "神道", "113年", "神明造", "Nobunaga Wall"]},
 {"word": "高徳院", "reps": ["鎌倉", "大仏", "観光名所", "仏教", "歴史的建造物", "文化財"]},
 {"word": "駅伝", "reps": ["long‑distance relay race", "a cloth sash called tasuki", "箱根駅伝", "1チーム10名", "20km/人", "陸上競技"]},
-{"word": "流鏑馬", "reps": ["神事", "combines horseback riding and archery", "6世紀", "武士文化", "鎌倉時代", "観光"]},
+{"word": "流鏑馬", "reps": ["神事", "combines horseback riding and archery", "6世紀", "武士文化", "鎌倉時代", "鶴岡八幡宮"]},
 {"word": "寺子屋", "reps": ["江戸時代", "教育", "庶民", "学問", "日本文化", "歴史"]},
-{"word": "集団登校", "reps": ["学校", "児童", "安全", "日本文化", "教育制度", "地域社会"]},
-{"word": "田んぼアート", "reps": ["稲作", "観光", "芸術", "地域振興", "日本文化", "鶴岡八幡宮"]},
+{"word": "集団登校", "reps": ["“group school commuting", "Safety", "Community involvement", "Education in discipline", "教育制度", "地域社会"]},
+{"word": "田んぼアート", "reps": ["青森", "1993", "different rice plant varieties with colored leaves and ears—green, purple, red, yellow, and white", "land art", "revitalize", "combining agriculture, creativity, and tourism"]},
 {"word": "百舌鳥古市古墳群", "reps": ["大阪府", "古墳", "世界遺産", "歴史", "考古学", "文化財"]},
 {"word": "西国三十三ヶ所", "reps": ["33 different forms to save sentient beings", "2府5県", "33の寺院", "Kannon, the Bodhisattva of Compassion", "徳道上人", "御朱印の起源"]},
 {"word": "中山道", "reps": ["江戸時代", "街道", "宿場町", "526km", "69宿", "木曽路"]}
 
   ]
 }
+
 
 
 
