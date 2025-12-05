@@ -561,14 +561,14 @@
 {"word": "御朱印", "reps": ["神社", "寺院", "参拝", "記録", "日本文化", "観光"]},
 {"word": "小京都", "reps": ["城下町", "古い町並み", "室町時代", "都写し", "高山・金沢・津和野", "National Kyoto Association"]},
 {"word": "棚田", "reps": ["白米千枚田（輪島）", "丸山千枚田（熊野）", "古墳時代", "江戸時代に全国へ拡大", "日本文化", "自然美"]},
-{"word": "尾道", "reps": ["a historic port city", "steep hills", "Shimanami Kaidō", "文学", "映画", "歴史"]},
-{"word": "潮干狩り", "reps": ["海", "貝", "春", "観光", "家族行事", "日本文化"]},
+{"word": "尾道", "reps": ["a historic port city", "steep hills", "Shimanami Kaidō", "文学", "映画", " 室町時代には日明貿易"]},
+{"word": "潮干狩り", "reps": ["GW前後", "Japanese littleneck clams", "hard clams", "A small rake熊手", "九十九里浜", "田辺湾"]},
 {"word": "一富士二鷹三茄子", "reps": ["初夢", "縁起物", "日本文化", "伝統", "富士山", "幸運"]},
 {"word": "関ヶ原の戦い", "reps": ["1600年", "徳川家康", "石田三成", "150,000 troops", "1 day", "日本史"]},
 {"word": "隠れキリシタン", "reps": ["Hidden Christians", "17C", "Virgin Mary", "Nagasaki, the Gotō Islands, and Ikitsuki Island", "文化", "迫害"]},
 {"word": "大奥", "reps": ["Great Interior", "a secluded world", "concubines", "several thousand women", "文化", "日本史"]},
 {"word": "お食い初め", "reps": ["写真撮影", "小石", "一生食べ物に困らないように", "平安時代", "一汁三菜", "赤飯、尾頭付き鯛"]},
-{"word": "手締め", "reps": ["宴会", "締め", "掛け声", "日本文化", "伝統", "儀式"]},
+{"word": "手締め", "reps": ["関西では「手打ち」", "一本締め（10回）", "三本締め", "一丁締め", "物事をきちんと終える・丸く収めるという意味", "宴会や式典"]},
 {"word": "分煙", "reps": ["喫煙", "禁煙", "公共施設", "健康", "社会制度", "日本文化"]},
 {"word": "割り勘", "reps": ["会食", "支払い", "公平", "日本文化", "友人関係", "習慣"]},
 {"word": "優先席", "reps": ["電車", "バス", "公共交通機関", "高齢者", "障害者", "社会制度"]},
@@ -598,6 +598,7 @@
 
   ]
 }
+
 
 
 
