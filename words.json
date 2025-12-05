@@ -568,7 +568,7 @@
 {"word": "隠れキリシタン", "reps": ["Hidden Christians", "17C", "Virgin Mary", "Nagasaki, the Gotō Islands, and Ikitsuki Island", "文化", "迫害"]},
 {"word": "大奥", "reps": ["Great Interior", "a secluded world", "concubines", "several thousand women", "文化", "日本史"]},
 {"word": "お食い初め", "reps": ["写真撮影", "小石", "一生食べ物に困らないように", "平安時代", "一汁三菜", "赤飯、尾頭付き鯛"]},
-{"word": "手締め", "reps": ["関西では「手打ち」", "一本締め（10回）", "三本締め", "一丁締め", "物事をきちんと終える・丸く収めるという意味", "宴会や式典"]},
+{"word": "手締め", "reps": ["関西では「手打ち」", "一本締め（10 claps）", "三本締め", "一丁締め", "物事をきちんと終える・丸く収めるという意味", "宴会や式典"]},
 {"word": "分煙", "reps": ["喫煙", "禁煙", "公共施設", "健康", "社会制度", "日本文化"]},
 {"word": "割り勘", "reps": ["会食", "支払い", "公平", "日本文化", "友人関係", "習慣"]},
 {"word": "優先席", "reps": ["電車", "バス", "公共交通機関", "高齢者", "障害者", "社会制度"]},
@@ -584,7 +584,7 @@
 {"word": "IR（統合型リゾート）", "reps": ["Integrated Resort", "Casino Hotels", "MICE facilities", "MGM Resorts International + Orix Corporation", "1.5 trillion yen", "autumn 2030"]},
 {"word": "デジタル庁", "reps": ["日本政府", "行政改革", "IT政策", "デジタル化", "社会制度", "近代化"]},
 {"word": "敷金礼金", "reps": ["security deposit", "keymoney", "契約", "日本文化", "制度", "住居"]},
-{"word": "唐招提寺", "reps": ["奈良県", "鑑真", "8世紀", "UNESCO世界文化遺産", "歴史的建造物", "文化財"]},
+{"word": "唐招提寺", "reps": ["奈良県", "鑑真", "8世紀", "UNESCO世界文化遺産", "歴史的建造物", "校倉造り"]},
 {"word": "熱田神宮", "reps": ["愛知県", "草薙剣", "神道", "113年", "神明造", "Nobunaga Wall"]},
 {"word": "高徳院", "reps": ["鎌倉", "大仏", "観光名所", "仏教", "歴史的建造物", "文化財"]},
 {"word": "駅伝", "reps": ["long‑distance relay race", "a cloth sash called tasuki", "箱根駅伝", "1チーム10名", "20km/人", "陸上競技"]},
@@ -598,6 +598,7 @@
 
   ]
 }
+
 
 
 
