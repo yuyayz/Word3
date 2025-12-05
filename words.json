@@ -541,7 +541,7 @@
 {"word": "国立西洋美術館", "reps": ["東京", "上野", "印象派絵画", "5,700点", "ル・コルビュジエ設計", "UNESCO世界文化遺産"]},
 {"word": "元号", "reps": ["日本文化", "暦", "天皇", "歴史", "制度", "時代区分"]},
 {"word": "偕楽園", "reps": ["池泉回遊式", "徳川斉昭", "3,000本の梅", "19世紀", "民と偕（とも）に楽しむ」", "歴史的景観"]},
-{"word": "後楽園", "reps": ["岡山県", "日本三名園", "庭園美", "観光名所", "歴史的景観", "自然美"]},
+{"word": "後楽園", "reps": ["1700年", "日本三名園", "池田綱政", "Strolling pond garden", "14 hectares", "借景（岡山城）"]},
 {"word": "渋谷スクランブル交差点", "reps": ["5-way intersection", "道玄坂・公園通り・センター街", "Shibuya Scramble Crossing", "the busiest pedestrian intersections", "都市文化", "象徴"]},
 {"word": "ししおどし", "reps": ["庭園", "竹", "音", "伝統文化", "装飾", "日本美学"]},
 {"word": "古墳", "reps": ["ancient burial mound", "moat", "4～6世紀", "keyhole‑shaped, round, and square types", "Daisenryō Kofun", "UNESCO World Heritage Site"]},
@@ -598,6 +598,7 @@
 
   ]
 }
+
 
 
 
