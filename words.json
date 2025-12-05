@@ -580,7 +580,7 @@
 {"word": "三寒四温", "reps": ["季節", "春", "気候変化", "自然現象", "日本文化", "表現"]},
 {"word": "鰯雲", "reps": ["秋", "sardine clouds", "cirrocumulus clouds", "季語", "the fleeting elegance", "景観"]},
 {"word": "風致地区", "reps": ["都市計画", "景観保護", "自然環境", "文化財", "日本制度", "観光"]},
-{"word": "干潟", "reps": ["有明海", "ラムサール条約", "藤前干潟", "生態系", "観光", "日本文化"]},
+{"word": "干潟", "reps": ["Tidal flats", "shallow coastal wetlands", "during low tide", "highly productive ecosystems", "shellfish, crabs, and migratory bird", "有明海", "land reclamation"]},
 {"word": "ラムサール条約", "reps": ["湿地保護", "国際条約", "自然環境", "生態系", "日本参加", "保全"]},
 {"word": "IR（統合型リゾート）", "reps": ["Integrated Resort", "Casino Hotels", "MICE facilities", "MGM Resorts International + Orix Corporation", "1.5 trillion yen", "autumn 2030"]},
 {"word": "デジタル庁", "reps": ["Digital Agency of Japan", "2021年", "the central authority for advancing digital transformation across government and society", "human-centered digitalization", "Government as a Startup", "近代化"]},
@@ -599,6 +599,7 @@
 
   ]
 }
+
 
 
 
