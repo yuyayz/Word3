@@ -16,7 +16,7 @@
     { "word": "ほうとう", "reps": ["山梨", "麺料理", "かぼちゃ", "郷土料理", "鍋", "冬"] },
     { "word": "長崎ちゃんぽん", "reps": ["長崎", "麺料理", "中華", "野菜", "海鮮", "郷土料理"] },
     { "word": "ゴーヤチャンプル", "reps": ["沖縄", "ゴーヤ", "豆腐", "炒め物", "郷土料理", "健康"] },
-    { "word": "おやき", "reps": ["長野", "dumpling-like food", "a dough of wheat, buckwheat, or rice", "offerings to ancestors", preserve seasonal ingredients", "祭り"] },
+    { "word": "おやき", "reps": ["長野", "dumpling-like food", "a dough of wheat, buckwheat, or rice", "offerings to ancestors", "preserve seasonal ingredients", "祭り"] },
     { "word": "八つ橋", "reps": ["京都", "和菓子", "ニッキ", "土産", "生八つ橋", "観光"] },
     { "word": "辛子レンコン", "reps": ["熊本", "郷土料理", "レンコン", "辛子", "酒肴", "伝統"] },
     { "word": "鯛焼き", "reps": ["和菓子", "小豆", "型焼き", "屋台", "庶民食", "人気"] },
@@ -598,6 +598,7 @@
 
   ]
 }
+
 
 
 
