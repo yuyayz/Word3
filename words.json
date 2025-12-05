@@ -16,7 +16,7 @@
     { "word": "ほうとう", "reps": ["山梨", "麺料理", "かぼちゃ", "郷土料理", "鍋", "冬"] },
     { "word": "長崎ちゃんぽん", "reps": ["長崎", "麺料理", "中華", "野菜", "海鮮", "郷土料理"] },
     { "word": "ゴーヤチャンプル", "reps": ["沖縄", "ゴーヤ", "豆腐", "炒め物", "郷土料理", "健康"] },
-    { "word": "おやき", "reps": ["長野", "郷土料理", "小麦粉", "野菜", "保存食", "祭り"] },
+    { "word": "おやき", "reps": ["長野", "dumpling-like food", "a dough of wheat, buckwheat, or rice", "offerings to ancestors", preserve seasonal ingredients", "祭り"] },
     { "word": "八つ橋", "reps": ["京都", "和菓子", "ニッキ", "土産", "生八つ橋", "観光"] },
     { "word": "辛子レンコン", "reps": ["熊本", "郷土料理", "レンコン", "辛子", "酒肴", "伝統"] },
     { "word": "鯛焼き", "reps": ["和菓子", "小豆", "型焼き", "屋台", "庶民食", "人気"] },
@@ -524,14 +524,14 @@
     "others": [
     {"word": "おでん", "reps": ["冬の料理", "煮込み", "室町時代", "a soy‑flavored dashi broth made from kombu and bonito.", "コンビニ", "出汁"]},
 {"word": "まんじゅう", "reps": ["和菓子", "餡", "蒸し菓子", "茶菓子", "伝統", "土産"]},
-{"word": "お好み焼き", "reps": ["大阪名物", "鉄板料理", "キャベツ", "ソース", "庶民食", "粉もの"]},
+{"word": "お好み焼き", "reps": ["grilled as you like", "batter", "hot griddle", "sweet-savory sauce", "flour, eggs, shredded cabbage", "dried bonito flakes and seaweed powder"]},
 {"word": "賽銭箱", "reps": ["神社", "参拝", "お金", "祈願", "伝統", "宗教文化"]},
 {"word": "根回し", "reps": ["going around the roots", "informal process of consulting stakeholders before formal decisions are made", "harmony, consensus, and group alignment"]},
 {"word": "交番", "reps": ["全国に6,000個", "Crime prevention & patrols", "Lost-and-found services", "Directions & community help", "Minor reports", "明治時代1875"]},
 {"word": "たこ焼き", "reps": ["大阪名物", "1930年代", "round balls of batter filled with diced octopus", "cast‑iron pan with half‑spherical molds", "庶民食", "観光"]},
 {"word": "刺し身", "reps": ["生魚", "和食", "醤油", "わさび", "日本料理", "新鮮"]},
 {"word": "納豆", "reps": ["発酵食品", "大豆", "健康食", "朝食", "独特の匂い", "日本文化"]},
-{"word": "合気道", "reps": ["20世紀", "精神修養", "護身術", "相手の力", "140か国", "道場"]},
+{"word": "合気道", "reps": ["20世紀", "The Way of Harmonizing Energy.", "circular movements", "throws, and joint locks", "140か国", "道場"]},
 {"word": "提灯", "reps": ["祭り", "照明", "紙", "伝統工芸", "装飾", "日本文化"]},
 {"word": "カプセルホテル", "reps": ["宿泊施設", "都市文化", "簡便", "低価格", "観光", "日本独自"]},
 {"word": "宝くじ", "reps": ["運試し", "金銭", "夢", "社会制度", "娯楽", "日本文化"]},
@@ -543,7 +543,7 @@
 {"word": "偕楽園", "reps": ["池泉回遊式", "徳川斉昭", "3,000本の梅", "19世紀", "民と偕（とも）に楽しむ」", "歴史的景観"]},
 {"word": "後楽園", "reps": ["1700年", "日本三名園", "池田綱政", "Strolling pond garden", "14 hectares", "借景（岡山城）"]},
 {"word": "渋谷スクランブル交差点", "reps": ["5-way intersection", "道玄坂・公園通り・センター街", "Shibuya Scramble Crossing", "the busiest pedestrian intersections", "都市文化", "象徴"]},
-{"word": "ししおどし", "reps": ["庭園", "竹", "音", "伝統文化", "装飾", "日本美学"]},
+{"word": "ししおどし", "reps": ["deer scarer", "garden device", "startle animals and protect crops", "17世紀", "京都", "日本美学"]},
 {"word": "古墳", "reps": ["ancient burial mound", "moat", "4～6世紀", "keyhole‑shaped, round, and square types", "Daisenryō Kofun", "UNESCO World Heritage Site"]},
 {"word": "忍者", "reps": ["戦術", "歴史", "隠密", "武士", "観光", "日本文化"]},
 {"word": "うどん", "reps": ["麺料理", "和食", "庶民食", "地域文化", "観光", "日本料理"]},
@@ -598,6 +598,7 @@
 
   ]
 }
+
 
 
 
