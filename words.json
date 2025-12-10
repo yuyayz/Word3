@@ -555,7 +555,7 @@
 {"word": "デパ地下", "reps": ["百貨店", "食品売場", "グルメ", "都市文化", "観光", "日本文化"]},
 {"word": "伊豆諸島", "reps": ["東京都", "大島、新島、神津島、三宅島、御蔵島、八丈島、青ヶ島", "明日葉・くさや", "along with more than 100 uninhabited islets", "火山", "文化"]},
 {"word": "錦市場", "reps": ["平安時代", "江戸時代に本格的な魚市場に", "地下水「錦の水」", "vegetables, tofu, pickles, and other specialties essential to Kyoto cuisine", "130 shops", "グルメ"]},
-{"word": "迎賓館", "reps": ["東京", "明治時代", "建築", "国賓", "文化財", "観光"]},
+{"word": "迎賓館", "reps": ["The State Guest House", "20世紀初頭", "京都迎賓館は2005年設立", "a stage for diplomacy, hosting summit meetings, signing ceremonies", "neo‑baroque", "観光"]},
 {"word": "眼鏡橋", "reps": ["日本最古の石橋", "double-arch stone bridge", "17世紀", "22m", "日本三名橋", "Spectacles Bridge"]},
 {"word": "日本三名橋", "reps": ["錦帯橋", "日本橋", "眼鏡橋", "全部17世紀"]},
 {"word": "摩周湖", "reps": ["北海道", "湖", "観光名所", "自然美", "霧", "日本文化"]},
@@ -566,7 +566,7 @@
 {"word": "潮干狩り", "reps": ["GW前後", "Japanese littleneck clams", "hard clams", "A small rake熊手", "九十九里浜", "田辺湾"]},
 {"word": "一富士二鷹三茄子", "reps": ["初夢", "縁起物", "日本文化", "伝統", "富士山", "幸運"]},
 {"word": "関ヶ原の戦い", "reps": ["1600年", "徳川家康", "石田三成", "150,000 troops", "1 day", "日本史"]},
-{"word": "隠れキリシタン", "reps": ["Hidden Christians", "17C", "Virgin Mary", "Nagasaki, the Gotō Islands, and Ikitsuki Island", "文化", "迫害"]},
+{"word": "隠れキリシタン", "reps": ["Hidden Christians", "17C", "Virgin Mary", "Nagasaki, the Gotō Islands, and Ikitsuki Island", "世界遺産", "迫害"]},
 {"word": "大奥", "reps": ["Great Interior", "a secluded world", "concubines", "several thousand women", "文化", "日本史"]},
 {"word": "お食い初め", "reps": ["写真撮影", "小石", "一生食べ物に困らないように", "平安時代", "一汁三菜", "赤飯、尾頭付き鯛"]},
 {"word": "手締め", "reps": ["関西では「手打ち」", "一本締め（10 claps）", "三本締め", "一丁締め", "物事をきちんと終える・丸く収めるという意味", "宴会や式典"]},
@@ -599,6 +599,7 @@
 
   ]
 }
+
 
 
 
